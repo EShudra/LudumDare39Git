@@ -14,7 +14,6 @@ public class WireSwitcher : MonoBehaviour {
 	}
 	
 	public void switchOn(){
-		Debug.Log ("test1");
 		sRend.sprite = wireOn;
 	}
 

@@ -9,7 +9,7 @@ using UnityEngine.EventSystems;
 /// Abstract class. Controls slider selection highlight.
 /// </summary>
 
-public abstract class ControlSlider : MonoBehaviour, IDragHandler {//, ISelectHandler, IDeselectHandler {
+public abstract class ControlSlider : MonoBehaviour, IMoveHandler, IDragHandler {//, ISelectHandler, IDeselectHandler {
 
 	public GameObject indicator;
 	SpriteRenderer iRend;
@@ -25,15 +25,15 @@ public abstract class ControlSlider : MonoBehaviour, IDragHandler {//, ISelectHa
 	}
 
 	void Update(){
-		/*if (getInputAxis()) {
-			powerOn ();
-		} else {
-			powerOff ();
-		}*/
-
 		if (getInputAxis ()) {
 			powerSwitch ();
 		}
+	}
+
+	public void OnMove(UnityEngine.EventSystems.AxisEventData data){
+		//Debug.Log (this.GetComponent<Slider>().value);
+		setPlayerProperty (this.GetComponent<Slider>().value);
+
 	}
 
 	public void OnDrag(UnityEngine.EventSystems.PointerEventData data){
