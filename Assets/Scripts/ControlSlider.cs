@@ -46,9 +46,7 @@ public abstract class ControlSlider : MonoBehaviour, IDragHandler {//, ISelectHa
 		iRend.sprite = powerOnSprite;
 		enablePlayerProperty (true);
 		foreach (var item in wiresArr) {
-			Debug.Log ("test3");
 			if (item.GetComponent<WireSwitcher> () != null) {
-				Debug.Log ("test2");
 				item.GetComponent<WireSwitcher> ().switchOn();
 			}
 		}
