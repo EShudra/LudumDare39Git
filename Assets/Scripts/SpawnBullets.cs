@@ -14,23 +14,35 @@ public class SpawnBullets : MonoBehaviour {
 	public GameObject BulletPrefab;
 	//---5. Drag & Drop your prefab here
 
-	public float fireRate = 0.2f;
-	public float fireMinRate = 0.1f;
-	public float fireMaxRate = 0.4f;
-	public float fireDelay = 0.1f;
+	[SerializeField]
+	private float fireRate = 0.2f;
+	[SerializeField]
+	private float fireMinRate = 0.1f;
+	[SerializeField]
+	private float fireMaxRate = 0.4f;
+	[SerializeField]
+	private float fireDelay = 0.1f;
 
 	private float lastBulletTime = 0f;
 	private float startTime = 0f;
 	private bool fireIsOn = false;
 	//private string fireAxis = "Fire1"; // change if you use custom axis to fire
 
-	public GameObject player;
+	private PlayerMovement pm;
 
-	public float fireEulerAngle; //from 0 to 90
-	public bool playerLooksRight;
+	[SerializeField]
+	private float fireEulerAngle; //from 0 to 90
+	[SerializeField]
+	private bool playerLooksRight;
 
 	void Awake(){
 		fireRate = fireMaxRate;
+
+		pm = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerMovement> ();
+
+		if (pm == null) {
+			Debug.LogError ("No Player object found, or no PlayerMovement component is attached to the Player! [SPAWN_BULLETS.CS]");
+		}
 	}
 		
 	public void setFireState(bool state){
@@ -48,6 +60,7 @@ public class SpawnBullets : MonoBehaviour {
 			if (Time.time - startTime > fireDelay) {
 				if (Time.time - lastBulletTime > fireRate) {
 					lastBulletTime = Time.time;
+					playerLooksRight = pm.facingRight;
 					SpawnBullet ();
 				}
 			}
@@ -66,7 +79,12 @@ public class SpawnBullets : MonoBehaviour {
 		Vector3 direction = mousePos - spawnPos;
 
 		//make an instance of bullet with correct rotation
-		Quaternion newRotation = Quaternion.LookRotation(direction, new Vector3(0,0,1));
+		//Quaternion newRotation = Quaternion.LookRotation(direction, new Vector3(0,0,1));
+		float spawnAngle = 180 -fireEulerAngle;
+		if (playerLooksRight) {
+			spawnAngle = fireEulerAngle;
+		}
+		Quaternion newRotation = Quaternion.Euler(new Vector3(0,0,spawnAngle));
 		Instantiate (BulletPrefab, spawnPos, newRotation);
 
 	}

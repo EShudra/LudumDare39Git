@@ -24,6 +24,10 @@ public abstract class ControlSlider : MonoBehaviour, IMoveHandler, IDragHandler 
 		iRend = indicator.GetComponent<SpriteRenderer> ();
 	}
 
+	void Start(){
+		setPlayerProperty (this.GetComponent<Slider>().value);
+	}
+
 	void Update(){
 		if (getInputAxis ()) {
 			powerSwitch ();
