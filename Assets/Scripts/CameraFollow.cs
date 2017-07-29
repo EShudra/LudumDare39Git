@@ -12,6 +12,7 @@ public class CameraFollow: MonoBehaviour {
 	[SerializeField] private float maxYOffset = 5.4f;
 
 	private Transform target;
+	private PlayerMovement pm;
 
 	private float offsetZ;
 	private Vector3 lastTargetPosition;
@@ -19,10 +20,10 @@ public class CameraFollow: MonoBehaviour {
 	private Vector3 lookAheadPos;
 
 	private void Awake() {
-		target = GameObject.FindGameObjectWithTag("Player").transform;
+		target = GameObject.FindGameObjectWithTag("CameraTarget").transform;
 
 		if (target == null) {
-			Debug.LogError("No target found for the camera!");
+			Debug.LogError("No CameraTarget found for the camera! [CAMERA_FOLLOW.CS]");
 		}
 	}
 
@@ -38,7 +39,7 @@ public class CameraFollow: MonoBehaviour {
 	private void Update() {
 		// only update lookahead pos if accelerating or changed direction
 		float xMoveDelta = (target.position - lastTargetPosition).x;
-
+		
 		Vector3 aheadTargetPos = target.position + Vector3.forward * offsetZ;
 		Vector3 newPos = Vector3.SmoothDamp(transform.position, aheadTargetPos, ref currentVelocity, smoothing);
 

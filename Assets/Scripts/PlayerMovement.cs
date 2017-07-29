@@ -14,16 +14,24 @@ public class PlayerMovement: MonoBehaviour {
 	[SerializeField] private LayerMask whatIsGround;                  // A mask determining what is ground to the character
 
 	private Transform groundCheck;    // A position marking where to check if the player is grounded.
-	const float groundCheckRadius = .2f; // Radius of the overlap circle to determine if grounded
+	private const float groundCheckRadius = .2f; // Radius of the overlap circle to determine if grounded
 	private bool grounded;            // Whether or not the player is grounded.
-	private Rigidbody2D rb2D;
-	private bool facingRight = false;  // For determining which way the player is currently facing.
+	private Rigidbody2D rb2D;		//Reference to the rigidbody2D
+	[HideInInspector] public bool facingRight = false;  // For determining which way the player is currently facing.
 
 	private void Awake() {
 		
 		// Setting up references.
 		groundCheck = transform.Find("GroundCheck");
 		rb2D = GetComponent<Rigidbody2D>();
+
+		if (groundCheck == null) {
+			Debug.LogError("No GroundCheck object found! [PLAYER_MOVEMENT.CS]");
+		}
+
+		if (rb2D == null) {
+			Debug.LogError("No Rigidbody2D component found! [PLAYER_MOVEMENT.CS]");
+		}
 	}
 
 
