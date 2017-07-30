@@ -25,9 +25,9 @@ public class PlayerControl : MonoBehaviour {
 	private void Update() {
 		//Read the inputs
 
-		if (!jumping) {
+		/*if (!jumping) {
 			jumping = Input.GetKey(jumpKey);
-		}
+		}*/
 
 		turnAround = Input.GetKeyDown(turnKey);
 			

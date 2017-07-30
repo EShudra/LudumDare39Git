@@ -20,7 +20,7 @@ public class JumpSlider : ControlSlider {
 
 	//use to make slider green on a
 	//time after jump
-	bool sliderIsGreen = false;//true if slider is green
+	bool isJumpingCycle = false;//true if slider is green
 	float sliderGreenDelay = 0.5f;//after this time slider turns to red (in seconds)
 	float sliderGreenTime = 0f;
 
@@ -53,15 +53,19 @@ public class JumpSlider : ControlSlider {
 
 	//use this method to make player jump
 	public override void EnablePlayerProperty (bool state)
-	{
-		//player.SetJumpAngleFromSlider (currJumpAngle);
+	{	
+		if (isJumpingCycle) {
+			Quaternion rotation = Quaternion.Euler (0, 0, currJumpAngle);
+			Debug.Log (rotation);
+			player.SetJumpAngleFromSlider (rotation);
+		}
 	}
 
 
 	//set player jump power according to slider value
 	public override void SetPlayerProperty (float value)
 	{
-		//player.SetJumpForceFromSlider (value);
+			player.SetJumpForceFromSlider (value);
 	}
 
 	//when true property and slider set to ON
@@ -77,7 +81,7 @@ public class JumpSlider : ControlSlider {
 		//sliderIsGreen = false;
 		if (Input.GetKeyDown (jumpKey)) {
 			jumpAngleArrPos = 0;
-			//pm.jumpPreparation = true;
+			isJumpingCycle = true;
 		}
 
 		if (Input.GetKey (jumpKey)) {
@@ -87,12 +91,19 @@ public class JumpSlider : ControlSlider {
 		}
 
 		if (Input.GetKeyUp (jumpKey)) {
-			sliderGreenTime = Time.time; 
+			sliderGreenTime = Time.time;
+			StartCoroutine (jumpOffWithDelay(sliderGreenDelay));
 		}
 
-		if (Time.time - sliderGreenTime > sliderGreenDelay) {
-			PowerOff ();
-		}
+		/*if (Time.time - sliderGreenTime > sliderGreenDelay) {
+
+		}*/
+	}
+
+	IEnumerator jumpOffWithDelay(float seconds){
+		yield return new WaitForSeconds (seconds);
+		isJumpingCycle = false;
+		PowerOff ();		
 	}
 
 	//get current angle from array and set pointer on next
