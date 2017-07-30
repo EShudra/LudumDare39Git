@@ -5,13 +5,8 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour {
 
 	[SerializeField] private KeyCode turnKey;
-	[SerializeField] private KeyCode moveKey;
-	[SerializeField] private KeyCode jumpKey;
 
 	private PlayerMovement pm;
-	private bool jumping = false;
-	private bool turnAround = false;
-	private bool moving = false;
 
 	private void Awake() {
 		pm = GetComponent<PlayerMovement>();
@@ -23,24 +18,7 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	private void Update() {
-		//Read the inputs
-
-		if (!jumping) {
-			jumping = Input.GetKey(jumpKey);
-		}
-
-		turnAround = Input.GetKeyDown(turnKey);
-			
-		if (Input.GetKeyDown(moveKey)) {						/* Поменять этот if на  moving = Input.GetKey(moveKey); если Дима захочет */
-			pm.moving = !pm.moving;                                   /* чтобы персонаж двигался пока игрок жмёт кнопку. */
-		}
-	}
-
-
-	private void FixedUpdate() {
-		// Pass all parameters to the character control script.
-		pm.Move(jumping, turnAround);
-		jumping = false;
-		turnAround = false;
+		//Read the input
+		pm.turnAround = Input.GetKeyDown(turnKey);
 	}
 }

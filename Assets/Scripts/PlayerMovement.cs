@@ -23,6 +23,7 @@ public class PlayerMovement: MonoBehaviour {
 	[HideInInspector] public bool facingRight = false;  // For determining which way the player is currently facing.
 	[HideInInspector] public bool moving = false;       // For determining if the player is currently moving
 	[HideInInspector] public bool jumpPreparation = false;  // For determining if the player is preparing to jump.
+	[HideInInspector] public bool turnAround = false;
 
 	private void Awake() {
 		
@@ -41,10 +42,10 @@ public class PlayerMovement: MonoBehaviour {
 
 
 	private void FixedUpdate() {																										//FIXED UPDATE
-		grounded = false;
-
 		/* The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
 		   This can be done using layers instead but Sample Assets will not overwrite your project settings. */
+		grounded = false;
+
 		Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, groundCheckRadius, whatIsGround);
 		for (int i = 0; i < colliders.Length; i++) {
 			if (colliders[i].gameObject != gameObject)
@@ -54,6 +55,11 @@ public class PlayerMovement: MonoBehaviour {
 		if (jumpPreparation) {
 																													//TODO: jump prepataion animation
 		}
+
+		Move(!grounded, turnAround);
+
+		grounded = false;
+		turnAround = false;
 	}
 
 	public void Move(bool jumping, bool turnAround) {																		//MOVE
