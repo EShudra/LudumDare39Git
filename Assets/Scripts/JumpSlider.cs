@@ -56,7 +56,6 @@ public class JumpSlider : ControlSlider {
 	{	
 		if (isJumpingCycle) {
 			Quaternion rotation = Quaternion.Euler (0, 0, currJumpAngle);
-			Debug.Log (rotation);
 			player.SetJumpAngleFromSlider (rotation);
 		}
 	}
