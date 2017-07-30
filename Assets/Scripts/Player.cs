@@ -6,19 +6,19 @@ public class Player : MonoBehaviour {
 
 	public class PlayerStats {
 		public float maximumPower = 300f;
-		private float IpowerAmount = 0f;
+		private float powerAmount_ = 0f;
 
 		public float powerAmount {
-			get { return IpowerAmount; }
-			set { IpowerAmount = Mathf.Clamp(value, 0, maximumPower); }
+			get { return powerAmount_; }
+			set { powerAmount_ = Mathf.Clamp(value, 0, maximumPower); }
 		}
 
 		public float maximumHealth = 100f;
-		private float IhealthAmount = 0f;
+		private float healthAmount_ = 0f;
 		
 		public float healthAmount {
-			get { return IhealthAmount; }
-			set { IhealthAmount = Mathf.Clamp(value, 0, maximumHealth); }
+			get { return healthAmount_; }
+			set { healthAmount_ = Mathf.Clamp(value, 0, maximumHealth); }
 		}
 
 		public PlayerStats() {
@@ -51,8 +51,12 @@ public class Player : MonoBehaviour {
 		pm.movementSpeed = pm.minimumMovementSpeed + (pm.maximumMovementSpeed - pm.minimumMovementSpeed) * Mathf.Clamp(sliderMultiplier, 0f, 1f);
 	}
 
-	public void SetJumpFromSlider (float sliderMultiplier) {        //Set jump force with slider
+	public void SetJumpForceFromSlider (float sliderMultiplier) {        //Set jump force with slider
 		pm.jumpForce = pm.minimumJumpForce + (pm.maximumJumpForce - pm.minimumJumpForce) * Mathf.Clamp(sliderMultiplier, 0f, 1f);
+	}
+
+	public void SetJumpAngleFromSlider (Quaternion rotation) {
+		pm.jumpVector = (rotation * Vector3.right).normalized;
 	}
 
 	public void Charge(float chargeAmount) {			//Charge Player with some batteries
