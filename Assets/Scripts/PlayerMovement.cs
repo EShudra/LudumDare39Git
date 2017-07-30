@@ -20,6 +20,7 @@ public class PlayerMovement: MonoBehaviour {
 	private const float groundCheckRadius = .2f; // Radius of the overlap circle to determine if grounded
 	private bool grounded;            // Whether or not the player is grounded.
 	private Rigidbody2D rb2D;		//Reference to the rigidbody2D
+	[HideInInspector] public bool jumping; // For determining when the player is jumping.
 	[HideInInspector] public bool facingRight = false;  // For determining which way the player is currently facing.
 	[HideInInspector] public bool moving = false;       // For determining if the player is currently moving
 	[HideInInspector] public bool jumpPreparation = false;  // For determining if the player is preparing to jump.
@@ -56,7 +57,8 @@ public class PlayerMovement: MonoBehaviour {
 																													//TODO: jump prepataion animation
 		}
 
-		Move(!grounded, turnAround);
+		Move(jumping, turnAround);
+		jumping = false;
 
 		grounded = false;
 		turnAround = false;
@@ -64,7 +66,7 @@ public class PlayerMovement: MonoBehaviour {
 
 	public void Move(bool jumping, bool turnAround) {																		//MOVE
 
-		//only control the player if grounded or airControl is turned on
+		//only control the player  if grounded or airControl is turned on
 		if ((grounded || airControl) && moving && !jumpPreparation) {
 			
 			if (facingRight) {
