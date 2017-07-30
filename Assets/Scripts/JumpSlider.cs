@@ -81,6 +81,7 @@ public class JumpSlider : ControlSlider {
 		//sliderIsGreen = false;
 		if (Input.GetKeyDown (jumpKey)) {
 			jumpAngleArrPos = 0;
+			currJumpAngle = GetJumpAngle ();
 			isJumpingCycle = true;
 		}
 
@@ -113,6 +114,10 @@ public class JumpSlider : ControlSlider {
 		jumpAngleArrPos++;
 		if (jumpAngleArrPos >= jumpAngleArr.Length) {
 			jumpAngleArrPos = 0;
+		}
+
+		if (!pm.facingRight) {
+			angle = 180f - angle;
 		}
 		return angle;
 	}

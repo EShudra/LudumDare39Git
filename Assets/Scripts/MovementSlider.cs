@@ -42,7 +42,7 @@ public class MovementSlider : ControlSlider {
 	//on/off player movement
 	public override void EnablePlayerProperty (bool state)
 	{
-		//pm.moving = true;
+		pm.moving = state;
 	}
 
 
