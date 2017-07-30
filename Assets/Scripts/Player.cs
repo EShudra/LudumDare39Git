@@ -57,7 +57,7 @@ public class Player : MonoBehaviour {
 
 	public void Charge(float chargeAmount) {			//Charge Player with some batteries
 		stats.powerAmount += chargeAmount;
-		Debug.Log("You picked up a battery! +" + chargeAmount + " power gained. Current power - " + stats.healthAmount + ".");
+		Debug.Log("You picked up a battery! +" + chargeAmount + " power gained. Current power - " + stats.powerAmount + ".");
 
 		if (stats.powerAmount <= 0) {
 			Debug.Log("You died! Zero power reached! Health remaining: " + stats.healthAmount + ".");
