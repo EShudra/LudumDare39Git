@@ -15,7 +15,6 @@ public class CameraFollow: MonoBehaviour {
 	private PlayerMovement pm;
 
 	private float offsetZ;
-	private Vector3 lastTargetPosition;
 	private Vector3 currentVelocity;
 	private Vector3 lookAheadPos;
 
@@ -27,24 +26,16 @@ public class CameraFollow: MonoBehaviour {
 		}
 	}
 
-	// Use this for initialization
 	private void Start() {
-		lastTargetPosition = target.position;
 		offsetZ = (transform.position - target.position).z;
 		transform.parent = null;
 	}
 
-
-	// Update is called once per frame
 	private void Update() {
-		// only update lookahead pos if accelerating or changed direction
-		float xMoveDelta = (target.position - lastTargetPosition).x;
 		
 		Vector3 aheadTargetPos = target.position + Vector3.forward * offsetZ;
 		Vector3 newPos = Vector3.SmoothDamp(transform.position, aheadTargetPos, ref currentVelocity, smoothing);
 
 		transform.position = new Vector3(Mathf.Clamp(newPos.x, minXOffset, maxXOffset), Mathf.Clamp(newPos.y, minYOffset, maxYOffset), newPos.z);
-
-		lastTargetPosition = target.position;
 	}
 }
