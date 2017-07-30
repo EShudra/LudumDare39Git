@@ -6,10 +6,13 @@ public class PlayerMovement: MonoBehaviour {
 	
 	public float movementSpeed = 10f;                                   // The speed the player can travel in the x axis.
 	public float maximumMovementSpeed = 12f;
-	public float minimumMovementSpeed = 0f;																	// TODO: currentMS = minMS + (maxMS-minMS) * MSsliderAmplifier; AND do max value check
+	public float minimumMovementSpeed = 0f;
+
 	public float jumpForce = 400f;                                      // Amount of force added when the player jumps.
-	public float maximumJumpForce = 800f;
-	public float minimumJumpForce = 200f;																	// TODO: currentJF = minJF + (maxJF-minJF) * JFsliderAmplifier; AND do max value check
+	public float maximumJumpForce = 1000f;
+	public float minimumJumpForce = 200f;
+	public Vector3 jumpVector = Vector3.up;
+
 	[SerializeField] private bool airControl = false;                 // Whether or not a player can steer while jumping;
 	[SerializeField] private LayerMask whatIsGround;                  // A mask determining what is ground to the character
 
@@ -18,6 +21,8 @@ public class PlayerMovement: MonoBehaviour {
 	private bool grounded;            // Whether or not the player is grounded.
 	private Rigidbody2D rb2D;		//Reference to the rigidbody2D
 	[HideInInspector] public bool facingRight = false;  // For determining which way the player is currently facing.
+	[HideInInspector] public bool moving = false;       // For determining if the player is currently moving
+	[HideInInspector] public bool jumpPreparation = false;  // For determining if the player is preparing to jump.
 
 	private void Awake() {
 		
@@ -45,13 +50,17 @@ public class PlayerMovement: MonoBehaviour {
 			if (colliders[i].gameObject != gameObject)
 				grounded = true;
 		}
+
+		if (jumpPreparation) {
+																													//TODO: jump prepataion animation
+		}
 	}
 
-	public void Move(bool moving, bool jumping, bool turnAround) {																		//MOVE
+	public void Move(bool jumping, bool turnAround) {																		//MOVE
 
 		//only control the player if grounded or airControl is turned on
-		if ((grounded || airControl) && moving) {
-			// Move the character if the correct key was pressed
+		if ((grounded || airControl) && moving && !jumpPreparation) {
+			
 			if (facingRight) {
 				transform.Translate(new Vector2(movementSpeed * Time.fixedDeltaTime, 0f));
 			} else {
@@ -65,9 +74,8 @@ public class PlayerMovement: MonoBehaviour {
 		}
 		// Jump, if the correct key was pressed
 		if (grounded && jumping) {
-			// Add a vertical force to the player.
 			grounded = false;
-			rb2D.AddForce(new Vector2(0f, jumpForce));
+			rb2D.AddForce(jumpVector * jumpForce);
 		}
 	}
 
