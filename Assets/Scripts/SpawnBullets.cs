@@ -22,6 +22,7 @@ public class SpawnBullets : MonoBehaviour {
 	private float lastBulletTime = 0f;
 	private float startTime = 0f;
 	private bool fireIsOn = false;
+	private bool sliderIsZero = false;
 	//private string fireAxis = "Fire1"; // change if you use custom axis to fire
 
 	[Header("Toggle rotation")]
@@ -56,16 +57,24 @@ public class SpawnBullets : MonoBehaviour {
 	public void SetFireState(bool state){
 		fireIsOn = state;
 	}
+		
+	public bool getFireState(){
+		return fireIsOn;
+	}
 
-	public void SetFireRateFromSlider(float value){
+	public void setFireRateFromSlider(float value){
+		if (value == 0) {
+			sliderIsZero = true;
+		} else {
+			sliderIsZero = false;
+		}
+
 		fireRate = fireMaxRate - (fireMaxRate - fireMinRate) * value;
-		//Debug.Log (value);
-		Debug.Log (fireRate);
 	}
 
 	void FixedUpdate () {
 		//spawn bullet with fireRate after fireDelay
-		if (fireIsOn) {
+		if (fireIsOn && !sliderIsZero) {
 			if (Time.time - startTime > fireDelay) {
 				if (Time.time - lastBulletTime > fireRate) {
 					lastBulletTime = Time.time;
@@ -87,7 +96,7 @@ public class SpawnBullets : MonoBehaviour {
 			}
 		}
 
-		Debug.Log (fireEulerAngle);
+		//Debug.Log (fireEulerAngle);
 		//clamp rotation angle
 		fireEulerAngle = Mathf.Clamp (fireEulerAngle, fireEulerAngleMin, fireEulerAngleMax);
 

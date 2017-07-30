@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class JumpSlider : ControlSlider {
 
@@ -22,7 +23,6 @@ public class JumpSlider : ControlSlider {
 	//time after jump
 	bool isJumpingCycle = false;//true if slider is green
 	float sliderGreenDelay = 0.5f;//after this time slider turns to red (in seconds)
-	float sliderGreenTime = 0f;
 
 	//when jump key pressed you can change
 	//jump mode with this key
@@ -57,6 +57,10 @@ public class JumpSlider : ControlSlider {
 		if (isJumpingCycle) {
 			Quaternion rotation = Quaternion.Euler (0, 0, currJumpAngle);
 			player.SetJumpAngleFromSlider (rotation);
+
+			//subtract power
+			float costMul = getSliderValue();
+			pBar.subtractPower (powerCost*costMul);
 		}
 	}
 
@@ -91,13 +95,10 @@ public class JumpSlider : ControlSlider {
 		}
 
 		if (Input.GetKeyUp (jumpKey)) {
-			sliderGreenTime = Time.time;
 			StartCoroutine (jumpOffWithDelay(sliderGreenDelay));
 		}
 
-		/*if (Time.time - sliderGreenTime > sliderGreenDelay) {
 
-		}*/
 	}
 
 	IEnumerator jumpOffWithDelay(float seconds){

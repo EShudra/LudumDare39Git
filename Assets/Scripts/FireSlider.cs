@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FireSlider : ControlSlider {
 
@@ -34,12 +35,20 @@ public class FireSlider : ControlSlider {
 	//change fire rate by slider value
 	public override void SetPlayerProperty (float value)
 	{
-		gun.SetFireRateFromSlider (value);
+		gun.setFireRateFromSlider (value);
 	}
 		
 	//when true property and slider set to ON
 	public override bool GetInputAxis ()
 	{
 		return Input.GetKeyDown(fireKey);
+	}
+
+	override public void Update(){
+		base.Update ();
+		if (gun.getFireState ()) {
+			float costMul = getSliderValue();
+			pBar.subtractPower (powerCost*Time.deltaTime*costMul);
+		}
 	}
 }

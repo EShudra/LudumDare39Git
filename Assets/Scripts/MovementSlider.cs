@@ -52,4 +52,13 @@ public class MovementSlider : ControlSlider {
 		return Input.GetKeyDown(moveKey);
 	}
 
+	override public void Update(){
+		base.Update ();
+		if (pm.moving) {
+			float costMul = getSliderValue();
+			//Debug.Log (powerCost * Time.deltaTime*costMul);
+			pBar.subtractPower (powerCost*Time.deltaTime*costMul);
+		}
+	}
+
 }
