@@ -11,17 +11,13 @@ public class SpawnBullets : MonoBehaviour {
 	//---3. Bullet graphics must be located in X,Z dimensions(where Z is moving direction)
 	//---4. To move your bullet forward use Z axis!!!!
 
-	public GameObject BulletPrefab;
 	//---5. Drag & Drop your prefab here
+	[SerializeField] private GameObject BulletPrefab;
 
-	[SerializeField]
-	private float fireRate = 0.2f;
-	[SerializeField]
-	private float fireMinRate = 0.1f;
-	[SerializeField]
-	private float fireMaxRate = 0.4f;
-	[SerializeField]
-	private float fireDelay = 0.1f;
+	[SerializeField] private float fireRate = 0.2f;
+	[SerializeField] private float fireMinRate = 0.1f;
+	[SerializeField] private float fireMaxRate = 0.4f;
+	[SerializeField] private float fireDelay = 0.1f;
 
 	private float lastBulletTime = 0f;
 	private float startTime = 0f;
@@ -29,31 +25,39 @@ public class SpawnBullets : MonoBehaviour {
 	private bool sliderIsZero = false;
 	//private string fireAxis = "Fire1"; // change if you use custom axis to fire
 
+	[Header("Toggle rotation")]
+	[SerializeField] private bool rotationEnabled = false;
+	
 	private PlayerMovement pm;
 
-	[SerializeField] KeyCode rotateUpKey; // keybord key to ratate gun up
-	[SerializeField] KeyCode rotateDownKey; // keybord key to ratate gun down
-	private float fireEulerAngle = 0; // from fireEulerAngleMin to fireEulerAngleMax
+	[Header("Rotation keys")]
+	[SerializeField] private KeyCode rotateUpKey; // keybord key to ratate gun up
+	[SerializeField] private KeyCode rotateDownKey; // keybord key to ratate gun down
+
+	[Header("Rotation angles")]
 	[SerializeField] private float fireEulerAngleMin = 0; 
 	[SerializeField] private float fireEulerAngleMax = 90; 
-	private bool playerLooksRight;
+	private float fireEulerAngle = 0; // from fireEulerAngleMin to fireEulerAngleMax
+
+	[Header("Rotation speed and bullet spread")]
 	[SerializeField] private float angularEulerSpeed = 30; //angular speed per second
 	[SerializeField] private float angularEulerSpread = 4; //angular speed per second
+	private bool playerLooksRight;
 
 	void Awake(){
 		fireRate = fireMaxRate;
 
 		pm = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerMovement> ();
-
+		
 		if (pm == null) {
 			Debug.LogError ("No Player object found, or no PlayerMovement component is attached to the Player! [SPAWN_BULLETS.CS]");
 		}
 	}
 		
-	public void setFireState(bool state){
+	public void SetFireState(bool state){
 		fireIsOn = state;
 	}
-
+		
 	public bool getFireState(){
 		return fireIsOn;
 	}
@@ -64,6 +68,7 @@ public class SpawnBullets : MonoBehaviour {
 		} else {
 			sliderIsZero = false;
 		}
+
 		fireRate = fireMaxRate - (fireMaxRate - fireMinRate) * value;
 	}
 
@@ -79,14 +84,16 @@ public class SpawnBullets : MonoBehaviour {
 			}
 		}
 
-		//rotate gun up if rotate Up key is pressed
-		if (Input.GetKey (rotateUpKey)) {
-			fireEulerAngle += angularEulerSpeed * Time.deltaTime;
-		}
+		if (rotationEnabled) {
+			//rotate gun up if rotate Up key is pressed
+			if (Input.GetKey(rotateUpKey)) {
+				fireEulerAngle += angularEulerSpeed * Time.deltaTime;
+			}
 
-		//rotate gun up if rotate Down key is pressed
-		if (Input.GetKey (rotateDownKey)) {
-			fireEulerAngle -= angularEulerSpeed * Time.deltaTime;
+			//rotate gun up if rotate Down key is pressed
+			if (Input.GetKey(rotateDownKey)) {
+				fireEulerAngle -= angularEulerSpeed * Time.deltaTime;
+			}
 		}
 
 		//Debug.Log (fireEulerAngle);

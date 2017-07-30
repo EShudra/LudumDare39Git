@@ -29,7 +29,7 @@ public class FireSlider : ControlSlider {
 	//turn on/off fire
 	public override void EnablePlayerProperty (bool state)
 	{
-		gun.setFireState (state);
+		gun.SetFireState (state);
 	}
 
 	//change fire rate by slider value
