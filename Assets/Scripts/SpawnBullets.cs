@@ -26,6 +26,7 @@ public class SpawnBullets : MonoBehaviour {
 	private float lastBulletTime = 0f;
 	private float startTime = 0f;
 	private bool fireIsOn = false;
+	private bool sliderIsZero = false;
 	//private string fireAxis = "Fire1"; // change if you use custom axis to fire
 
 	private PlayerMovement pm;
@@ -53,15 +54,22 @@ public class SpawnBullets : MonoBehaviour {
 		fireIsOn = state;
 	}
 
+	public bool getFireState(){
+		return fireIsOn;
+	}
+
 	public void setFireRateFromSlider(float value){
+		if (value == 0) {
+			sliderIsZero = true;
+		} else {
+			sliderIsZero = false;
+		}
 		fireRate = fireMaxRate - (fireMaxRate - fireMinRate) * value;
-		//Debug.Log (value);
-		Debug.Log (fireRate);
 	}
 
 	void FixedUpdate () {
 		//spawn bullet with fireRate after fireDelay
-		if (fireIsOn) {
+		if (fireIsOn && !sliderIsZero) {
 			if (Time.time - startTime > fireDelay) {
 				if (Time.time - lastBulletTime > fireRate) {
 					lastBulletTime = Time.time;
@@ -81,7 +89,7 @@ public class SpawnBullets : MonoBehaviour {
 			fireEulerAngle -= angularEulerSpeed * Time.deltaTime;
 		}
 
-		Debug.Log (fireEulerAngle);
+		//Debug.Log (fireEulerAngle);
 		//clamp rotation angle
 		fireEulerAngle = Mathf.Clamp (fireEulerAngle, fireEulerAngleMin, fireEulerAngleMax);
 

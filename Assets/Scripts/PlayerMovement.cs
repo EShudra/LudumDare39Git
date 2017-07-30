@@ -10,7 +10,7 @@ public class PlayerMovement: MonoBehaviour {
 
 	public float jumpForce = 400f;                                      // Amount of force added when the player jumps.
 	public float maximumJumpForce = 1000f;
-	public float minimumJumpForce = 200f;
+	public float minimumJumpForce = 0f;
 	public Vector3 jumpVector = Vector3.up;
 
 	[SerializeField] private bool airControl = false;                 // Whether or not a player can steer while jumping;

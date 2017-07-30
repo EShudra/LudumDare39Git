@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FireSlider : ControlSlider {
 
@@ -41,5 +42,13 @@ public class FireSlider : ControlSlider {
 	public override bool GetInputAxis ()
 	{
 		return Input.GetKeyDown(fireKey);
+	}
+
+	override public void Update(){
+		base.Update ();
+		if (gun.getFireState ()) {
+			float costMul = getSliderValue();
+			pBar.subtractPower (powerCost*Time.deltaTime*costMul);
+		}
 	}
 }
