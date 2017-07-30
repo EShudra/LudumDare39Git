@@ -17,9 +17,10 @@ public class PlayerMovement: MonoBehaviour {
 	[SerializeField] private LayerMask whatIsGround;                  // A mask determining what is ground to the character
 
 	private Transform groundCheck;    // A position marking where to check if the player is grounded.
-	private const float groundCheckRadius = .2f; // Radius of the overlap circle to determine if grounded
+	private const float groundCheckRadius = 0.25f; // Radius of the overlap circle to determine if grounded
 	private bool grounded;            // Whether or not the player is grounded.
 	private Rigidbody2D rb2D;		//Reference to the rigidbody2D
+
 	[HideInInspector] public bool jumping; // For determining when the player is jumping.
 	[HideInInspector] public bool facingRight = false;  // For determining which way the player is currently facing.
 	[HideInInspector] public bool moving = false;       // For determining if the player is currently moving
@@ -48,6 +49,8 @@ public class PlayerMovement: MonoBehaviour {
 		grounded = false;
 
 		Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, groundCheckRadius, whatIsGround);
+		Debug.DrawLine(new Vector2(groundCheck.position.x + groundCheckRadius, groundCheck.position.y), new Vector2(groundCheck.position.x - groundCheckRadius, groundCheck.position.y));
+		Debug.DrawLine(new Vector2(groundCheck.position.x, groundCheck.position.y + groundCheckRadius), new Vector2(groundCheck.position.x, groundCheck.position.y - groundCheckRadius));
 		for (int i = 0; i < colliders.Length; i++) {
 			if (colliders[i].gameObject != gameObject)
 				grounded = true;
