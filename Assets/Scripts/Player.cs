@@ -57,6 +57,7 @@ public class Player : MonoBehaviour {
 
 	public void SetJumpAngleFromSlider (Quaternion rotation) {
 		pm.jumpVector = (rotation * Vector3.right).normalized;
+		pm.jumping = true;
 	}
 
 	public void Charge(float chargeAmount) {			//Charge Player with some batteries
