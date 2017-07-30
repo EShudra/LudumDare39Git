@@ -30,10 +30,14 @@ public class SpawnBullets : MonoBehaviour {
 
 	private PlayerMovement pm;
 
-	[SerializeField]
-	private float fireEulerAngle; //from 0 to 90
-	[SerializeField]
+	[SerializeField] KeyCode rotateUpKey; // keybord key to ratate gun up
+	[SerializeField] KeyCode rotateDownKey; // keybord key to ratate gun down
+	private float fireEulerAngle = 0; // from fireEulerAngleMin to fireEulerAngleMax
+	[SerializeField] private float fireEulerAngleMin = 0; 
+	[SerializeField] private float fireEulerAngleMax = 90; 
 	private bool playerLooksRight;
+	[SerializeField] private float angularEulerSpeed = 30; //angular speed per second
+	[SerializeField] private float angularEulerSpread = 4; //angular speed per second
 
 	void Awake(){
 		fireRate = fireMaxRate;
@@ -56,6 +60,7 @@ public class SpawnBullets : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
+		//spawn bullet with fireRate after fireDelay
 		if (fireIsOn) {
 			if (Time.time - startTime > fireDelay) {
 				if (Time.time - lastBulletTime > fireRate) {
@@ -65,6 +70,21 @@ public class SpawnBullets : MonoBehaviour {
 				}
 			}
 		}
+
+		//rotate gun up if rotate Up key is pressed
+		if (Input.GetKey (rotateUpKey)) {
+			fireEulerAngle += angularEulerSpeed * Time.deltaTime;
+		}
+
+		//rotate gun up if rotate Down key is pressed
+		if (Input.GetKey (rotateDownKey)) {
+			fireEulerAngle -= angularEulerSpeed * Time.deltaTime;
+		}
+
+		Debug.Log (fireEulerAngle);
+		//clamp rotation angle
+		fireEulerAngle = Mathf.Clamp (fireEulerAngle, fireEulerAngleMin, fireEulerAngleMax);
+
 	}
 
 	void SpawnBullet(){
@@ -79,11 +99,15 @@ public class SpawnBullets : MonoBehaviour {
 		Vector3 direction = mousePos - spawnPos;
 
 		//make an instance of bullet with correct rotation
-		//Quaternion newRotation = Quaternion.LookRotation(direction, new Vector3(0,0,1));
+		//flip angle if needed
 		float spawnAngle = 180 -fireEulerAngle;
 		if (playerLooksRight) {
 			spawnAngle = fireEulerAngle;
 		}
+
+		//add spread
+		spawnAngle += (Random.value-0.5f)*2*angularEulerSpread;
+
 		Quaternion newRotation = Quaternion.Euler(new Vector3(0,0,spawnAngle));
 		Instantiate (BulletPrefab, spawnPos, newRotation);
 

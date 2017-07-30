@@ -1,5 +1,35 @@
 Initialize engine version: 5.6.2f1 (a2913c821e27)
 GfxDevice: creating device client; threaded=1
+<<<<<<< HEAD
+d3d11: D3D_FEATURE_LEVEL_11_1 not-recognized (only 11.0 runtime installed?)
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: AMD Radeon HD 7670 (ID=0x6758)
+    Vendor:   ATI
+    VRAM:     2032 MB
+    Driver:   15.200.1062.1004
+Begin MonoManager ReloadAssembly
+Platform assembly: Z:\MyProjects\084_LudumDare39\LudumDare39Git\Goliath_v0.15_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading Z:\MyProjects\084_LudumDare39\LudumDare39Git\Goliath_v0.15_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: Z:\MyProjects\084_LudumDare39\LudumDare39Git\Goliath_v0.15_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading Z:\MyProjects\084_LudumDare39\LudumDare39Git\Goliath_v0.15_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: Z:\MyProjects\084_LudumDare39\LudumDare39Git\Goliath_v0.15_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading Z:\MyProjects\084_LudumDare39\LudumDare39Git\Goliath_v0.15_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: Z:\MyProjects\084_LudumDare39\LudumDare39Git\Goliath_v0.15_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading Z:\MyProjects\084_LudumDare39\LudumDare39Git\Goliath_v0.15_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+- Completed reload, in  0.069 seconds
+Platform assembly: Z:\MyProjects\084_LudumDare39\LudumDare39Git\Goliath_v0.15_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: Z:\MyProjects\084_LudumDare39\LudumDare39Git\Goliath_v0.15_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 60Hz; virtual: 3360x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 1.344837 ms
+The game has started! Player now has 10 power and 100 health.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+=======
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
     Renderer: AMD Radeon(TM) R7 M360 (ID=0x6900)
@@ -23,10 +53,269 @@ desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Input initialized.
 <RI> Initialized touch support.
 UnloadTime: 2.869223 ms
+>>>>>>> master
 0.4
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
+<<<<<<< HEAD
+0.4
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.4
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.37
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.34
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.31
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.28
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.28
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 1.0, 0.1)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+You picked up a battery! +50 power gained. Current power - 60.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.4, 0.9)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.4, 0.9)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.1, 1.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.7, 0.7)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.6, 0.8)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.28
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.28
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.6, 0.8)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.6, 0.8)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.6, 0.8)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.6, 0.8)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.7, 0.7)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.7, 0.7)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.7, 0.7)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.7, 0.7)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.8, 0.6)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.8, 0.6)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.7, 0.7)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.8, 0.6)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.8, 0.6)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.6, 0.8)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.7, 0.7)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.6, 0.8)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.6, 0.8)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.6, 0.8)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.1, 1.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.7, 0.7)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.8, 0.6)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.7, 0.7)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.8, 0.6)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0.28
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.8, 0.6)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.8, 0.6)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.7, 0.7)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.7, 0.7)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.7, 0.7)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+You picked up a battery! +50 power gained. Current power - 110.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.8, 0.6)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+You picked up a battery! +50 power gained. Current power - 160.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.1, 1.0)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.9, 0.4)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.6, 0.8)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.7, 0.7)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.7, 0.7)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.6, 0.8)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.7, 0.7)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.7, 0.7)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.7, 0.7)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.4, 0.9)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.9, 0.4)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.4, 0.9)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.7, 0.7)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.7, 0.7)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+(0.0, 0.0, 0.4, 0.9)
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Setting up 3 worker threads for Enlighten.
+  Thread -> id: 1f90 -> priority: 1 
+  Thread -> id: 2528 -> priority: 1 
+  Thread -> id: 25f4 -> priority: 1 
+=======
 The game has started! Player now has 10 power and 100 health.
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
@@ -34,3 +323,4 @@ The game has started! Player now has 10 power and 100 health.
 Setting up 2 worker threads for Enlighten.
   Thread -> id: 4510 -> priority: 1 
   Thread -> id: 4674 -> priority: 1 
+>>>>>>> master
