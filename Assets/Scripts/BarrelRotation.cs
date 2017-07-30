@@ -16,13 +16,14 @@ public class BarrelRotation : MonoBehaviour {
 	[SerializeField] private Transform firePoint;
 
 	private Transform target;
+	private TurretBulletSpawn tbs;
 
-	private bool shooting = false;
 	private float minRotationConstraint = 0f;
 	private float maxRotationConstraint = 180f;
 
 	void Awake () {
 		target = GameObject.FindGameObjectWithTag(tagToShoot).transform;
+		tbs = GetComponent<TurretBulletSpawn>();
 
 		if (target == null) {
 			Debug.LogError("Object with tag '"+tagToShoot+"' was not found! [BARREL_ROTATION.CS]");
@@ -30,6 +31,10 @@ public class BarrelRotation : MonoBehaviour {
 
 		if (firePoint == null) {
 			Debug.LogError("No FirePoint found attached to this object! [BARREL_ROTATION.CS]");
+		}
+
+		if (tbs == null) {
+			Debug.LogError("No TurretBulletSpawn component attached to the barrel! [BARREL_ROTATION.CS]");
 		}
 
 		SetConstraints(turretType);
@@ -99,18 +104,12 @@ public class BarrelRotation : MonoBehaviour {
 		Debug.DrawRay(firePoint.position, target.position - firePoint.position, Color.green);
 
 		if (hit.collider.tag == tagToShoot) {
-			shooting = true;
+			tbs.SetFireState(true);
 			Debug.DrawRay(firePoint.position, target.position - firePoint.position, Color.green);
-			Debug.Log("We are currently hitting the player at "+hit.point);
-			Debug.Log("SHOOTING");
+			//Debug.Log("SHOOTING");
 		} else {
-			shooting = true;
-			Debug.Log("We are currently hitting NOT the player at " + hit.point);
+			tbs.SetFireState(false);
 			Debug.DrawRay(firePoint.position, new Vector3(hit.point.x, hit.point.y, 0f) - firePoint.position, Color.red);
 		}
-	}
-
-	private IEnumerator Shoot() {
-		yield return null;
 	}
 }
