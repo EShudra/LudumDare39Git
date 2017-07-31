@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Battery : MonoBehaviour {
 
-	private float chargeAmount = 50f;
+	[SerializeField] private float chargeAmount = 1000f;
 
 	private void OnTriggerEnter2D(Collider2D col) {
 		if (col.CompareTag("Player")) {

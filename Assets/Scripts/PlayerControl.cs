@@ -19,6 +19,9 @@ public class PlayerControl : MonoBehaviour {
 
 	private void Update() {
 		//Read the input
-		pm.turnAround = Input.GetKeyDown(turnKey);
+		if (!pm.turnAround) {
+			pm.turnAround = Input.GetKeyDown (turnKey);
+		}
+
 	}
 }
