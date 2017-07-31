@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour {
 	private Player player;
 	private TurretBulletSpawn tbs;
 
-	private float damage;
+	[HideInInspector] public float damage;
 
 	private void Awake() {
 		tbs = GetComponentInParent<TurretBulletSpawn>();

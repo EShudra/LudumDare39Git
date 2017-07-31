@@ -60,6 +60,12 @@ public class TurretBulletSpawn : MonoBehaviour {
 		float spawnAngle = (Random.value - 0.5f) * 2 * bulletSpread;
 
 		Quaternion newRotation = Quaternion.Euler(new Vector3(0, 0, spawnAngle));
-		Instantiate(BulletPrefab, transform.position, firePoint.rotation, transform);
+
+		Bullet bullet = Instantiate(BulletPrefab, firePoint.position, firePoint.rotation).GetComponent<Bullet>();
+		if (bullet != null) {
+			bullet.damage = damage;
+		} else {
+			Debug.LogError("No Bullet component attached to the bullet prefab found! [TURRET_BULLET_SPAWN.CS]");
+		}
 	}
 }
