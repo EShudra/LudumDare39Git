@@ -61,18 +61,22 @@ public class DialogButton : MonoBehaviour {
 		if (!lastPanel) {
 			nextPanel.SetActive (true);
 		} else {
-			PlayerMovement pm = GameObject.FindWithTag ("Player").GetComponent<PlayerMovement> ();
+			//PlayerMovement pm = GameObject.FindWithTag ("Player").GetComponent<PlayerMovement> ();
 
-			if (pm != null) {
+			/*if (pm != null) {
 				pm.enabled = true;
 			} else {
 				Debug.LogError ("Player object is not found [DIALOG_BUTTON.CS]");
-			}
+			}*/
 
 			//GameObject slidersAll = GameObject.FindWithTag ("SlidersRoot");
 
 			foreach (var item in whatToDisable) {
 				item.SetActive (false);
+			}
+
+			foreach (var item in whatToEnable) {
+				item.SetActive (true);
 			}
 
 		}
