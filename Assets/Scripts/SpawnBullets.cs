@@ -44,6 +44,9 @@ public class SpawnBullets : MonoBehaviour {
 	[SerializeField] private float angularEulerSpread = 4; //angular speed per second
 	private bool playerLooksRight;
 
+	[Header("Gun object pivot")]
+	[SerializeField] private Transform handPivot = null;
+
 	void Awake(){
 		fireRate = fireMaxRate;
 
@@ -96,9 +99,17 @@ public class SpawnBullets : MonoBehaviour {
 			}
 		}
 
-		//Debug.Log (fireEulerAngle);
+
 		//clamp rotation angle
 		fireEulerAngle = Mathf.Clamp (fireEulerAngle, fireEulerAngleMin, fireEulerAngleMax);
+
+		//set gun pivot rotation
+		playerLooksRight = pm.facingRight;
+		Quaternion rotateGunPivot = Quaternion.Euler (new Vector3 (0, 0, -fireEulerAngle));
+		if (playerLooksRight) {
+			rotateGunPivot = Quaternion.Euler (new Vector3 (0, 0, fireEulerAngle));
+		}
+		handPivot.transform.rotation = rotateGunPivot;
 
 	}
 

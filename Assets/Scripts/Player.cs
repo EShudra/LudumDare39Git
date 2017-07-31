@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
+	public PowerBar pBar;
+	public HpBar hpBar;
+
 	public class PlayerStats {
 		public float maximumPower = 300f;
 		private float powerAmount_ = 0f;
@@ -62,6 +65,7 @@ public class Player : MonoBehaviour {
 
 	public void Charge(float chargeAmount) {			//Charge Player with some batteries
 		stats.powerAmount += chargeAmount;
+		pBar.addPower (chargeAmount);
 		Debug.Log("You picked up a battery! +" + chargeAmount + " power gained. Current power - " + stats.powerAmount + ".");
 
 		if (stats.powerAmount <= 0) {
@@ -72,6 +76,7 @@ public class Player : MonoBehaviour {
 
 	public void Hit (float damage) {					//Hit Player with some damage
 		stats.healthAmount -= damage;
+		hpBar.updateBar (stats.healthAmount, stats.maximumHealth);
 		Debug.Log("You got hit with " + damage + " damage. Current health - " + stats.healthAmount + ".");
 
 		if (stats.healthAmount <= 0) {
