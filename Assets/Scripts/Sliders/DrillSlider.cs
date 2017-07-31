@@ -11,6 +11,7 @@ public class DrillSlider : ControlSlider {
 	public KeyCode drillOnOffKey;
 	public KeyCode drillMoveKey;
 
+
 	public override void Awake ()
 	{
 		//call parent awake
@@ -55,4 +56,6 @@ public class DrillSlider : ControlSlider {
 			drill.toggleDrillAngle ();
 		}
 	}
+
+
 }
