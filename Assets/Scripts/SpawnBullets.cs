@@ -18,7 +18,7 @@ public class SpawnBullets : MonoBehaviour {
 	[SerializeField] private AudioClip gunRotation;
 
 	private float soundLength;
-	private float lastSoundTime = 0fr;
+	private float lastSoundTime = 0f;
 
 	[SerializeField] private float damage = 10f;
 	[SerializeField] private float fireRate = 0.2f;
