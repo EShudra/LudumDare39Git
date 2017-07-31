@@ -8,8 +8,8 @@ public class PlayerMovement: MonoBehaviour {
 	public float maximumMovementSpeed = 12f;
 	public float minimumMovementSpeed = 0f;
 
-	public float jumpForce = 400f;                                      // Amount of force added when the player jumps.
-	public float maximumJumpForce = 1000f;
+	public float jumpForce = 500f;                                      // Amount of force added when the player jumps.
+	public float maximumJumpForce = 1500f;
 	public float minimumJumpForce = 0f;
 	public Vector3 jumpVector = Vector3.up;
 
@@ -20,13 +20,19 @@ public class PlayerMovement: MonoBehaviour {
 	private BoxCollider2D grCheckBoxCollider;
 	private const float groundCheckRadius = 0.25f; // Radius of the overlap circle to determine if grounded
 	private bool grounded;            // Whether or not the player is grounded.
-	private Rigidbody2D rb2D;		//Reference to the rigidbody2D
+	[HideInInspector] public Rigidbody2D rb2D;		//Reference to the rigidbody2D
 
 	[HideInInspector] public bool jumping; // For determining when the player is jumping.
 	[HideInInspector] public bool facingRight = false;  // For determining which way the player is currently facing.
 	[HideInInspector] public bool moving = false;       // For determining if the player is currently moving
 	[HideInInspector] public bool jumpPreparation = false;  // For determining if the player is preparing to jump.
 	[HideInInspector] public bool turnAround = false;
+
+	/*
+	private Vector3 lastPos;//use to check player offset from last frame
+	private Vector3 horizontalMovingThreshold = new Vector3 (0.2f*Time.fixedDeltaTime,0,0);
+
+	bool isMovingVertical = false;*/
 
 	private void Awake() {
 		
@@ -47,20 +53,23 @@ public class PlayerMovement: MonoBehaviour {
 		if (grCheckBoxCollider == null) {
 			Debug.LogError("No BoxCollider2D component found! [PLAYER_MOVEMENT.CS]");
 		}
+
+		//lastPos = transform.position;
 	}
 
 
 	private void FixedUpdate() {																										//FIXED UPDATE
-		/* The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
+		// Turn around if the correct key was pressed
+		if (turnAround) {
+			Flip();
+		}
+		turnAround = false;
+
+		/* The player is grounded if a boxcast of the groundcheck boxCollider2D hits anything designated as ground
 		   This can be done using layers instead but Sample Assets will not overwrite your project settings. */
 		grounded = false;
-
-		//Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.transform.position, groundCheckRadius, whatIsGround);
-		//grChechBoxCollider.Cast
 		RaycastHit2D[] hits = Physics2D.BoxCastAll(groundCheck.transform.position, grCheckBoxCollider.size, 0f, new Vector2(0f,0f), 0f, whatIsGround);
 
-		Debug.DrawLine(new Vector2(groundCheck.transform.position.x + groundCheckRadius, groundCheck.transform.position.y), new Vector2(groundCheck.transform.position.x - groundCheckRadius, groundCheck.transform.position.y));
-		Debug.DrawLine(new Vector2(groundCheck.transform.position.x, groundCheck.transform.position.y + groundCheckRadius), new Vector2(groundCheck.transform.position.x, groundCheck.transform.position.y - groundCheckRadius));
 		for (int i = 0; i < hits.Length; i++) {
 			if (hits[i].transform.gameObject != gameObject)
 				grounded = true;
@@ -74,7 +83,7 @@ public class PlayerMovement: MonoBehaviour {
 		jumping = false;
 
 		grounded = false;
-		turnAround = false;
+
 	}
 
 	public void Move(bool jumping, bool turnAround) {																		//MOVE
@@ -88,11 +97,7 @@ public class PlayerMovement: MonoBehaviour {
 				transform.Translate(new Vector2(-movementSpeed * Time.fixedDeltaTime, 0f));
 			}
 		}
-
-		// Turn around if the correct key was pressed
-		if (turnAround) {
-			Flip();
-		}
+			
 		// Jump, if the correct key was pressed
 		if (grounded && jumping) {
 			grounded = false;

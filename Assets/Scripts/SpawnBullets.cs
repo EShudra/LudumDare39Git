@@ -14,6 +14,7 @@ public class SpawnBullets : MonoBehaviour {
 	//---5. Drag & Drop your prefab here
 	[SerializeField] private GameObject BulletPrefab;
 
+	[SerializeField] private float damage = 10f;
 	[SerializeField] private float fireRate = 0.2f;
 	[SerializeField] private float fireMinRate = 0.1f;
 	[SerializeField] private float fireMaxRate = 0.4f;
@@ -43,6 +44,9 @@ public class SpawnBullets : MonoBehaviour {
 	[SerializeField] private float angularEulerSpeed = 30; //angular speed per second
 	[SerializeField] private float angularEulerSpread = 4; //angular speed per second
 	private bool playerLooksRight;
+
+	[Header("Gun object pivot")]
+	[SerializeField] private Transform handPivot = null;
 
 	void Awake(){
 		fireRate = fireMaxRate;
@@ -96,35 +100,41 @@ public class SpawnBullets : MonoBehaviour {
 			}
 		}
 
-		//Debug.Log (fireEulerAngle);
+
 		//clamp rotation angle
 		fireEulerAngle = Mathf.Clamp (fireEulerAngle, fireEulerAngleMin, fireEulerAngleMax);
 
+		//set gun pivot rotation
+		playerLooksRight = pm.facingRight;
+		Quaternion rotateGunPivot = Quaternion.Euler (new Vector3 (0, 0, -fireEulerAngle));
+		if (playerLooksRight) {
+			rotateGunPivot = Quaternion.Euler (new Vector3 (0, 0, fireEulerAngle));
+		}
+		handPivot.transform.rotation = rotateGunPivot;
+
 	}
 
-	void SpawnBullet(){
-		//get camera pos
-		Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-		mousePos.z = 0;
-
-		//get spawn point pos
-		Vector3 spawnPos = transform.position;
-
-		//calculate fire direction vector
-		Vector3 direction = mousePos - spawnPos;
-
+	void SpawnBullet() {
 		//make an instance of bullet with correct rotation
 		//flip angle if needed
-		float spawnAngle = 180 -fireEulerAngle;
+		float spawnAngle = 180 - fireEulerAngle;
 		if (playerLooksRight) {
 			spawnAngle = fireEulerAngle;
 		}
 
 		//add spread
-		spawnAngle += (Random.value-0.5f)*2*angularEulerSpread;
+		spawnAngle += (Random.value - 0.5f) * 2 * angularEulerSpread;
 
-		Quaternion newRotation = Quaternion.Euler(new Vector3(0,0,spawnAngle));
-		Instantiate (BulletPrefab, spawnPos, newRotation);
+		Quaternion newRotation = Quaternion.Euler(new Vector3(0, 0, spawnAngle));
+		Bullet bullet = Instantiate(BulletPrefab, transform.position, newRotation).GetComponentInChildren<Bullet>();
+
+		if (bullet != null) {
+			bullet.damage = damage;
+		} else {
+			Debug.LogError("No Bullet component found attached to the bullet prefab! [SPAWN_BULLETS.CS]");
+		}
+
+		
 
 	}
 }
