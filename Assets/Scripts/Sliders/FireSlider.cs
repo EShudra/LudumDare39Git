@@ -48,7 +48,7 @@ public class FireSlider : ControlSlider {
 		base.Update ();
 		if (gun.getFireState ()) {
 			float costMul = getSliderValue();
-			pBar.subtractPower (powerCost*Time.deltaTime*costMul);
+			pBar.SubtractPower (powerCost*Time.deltaTime*costMul);
 		}
 	}
 }

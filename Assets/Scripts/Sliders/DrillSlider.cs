@@ -11,6 +11,7 @@ public class DrillSlider : ControlSlider {
 	public KeyCode drillOnOffKey;
 	public KeyCode drillMoveKey;
 
+
 	public override void Awake ()
 	{
 		//call parent awake
@@ -48,11 +49,13 @@ public class DrillSlider : ControlSlider {
 		//spend power
 		if (drill.drillIsOn) {
 			float costMul = getSliderValue();
-			pBar.subtractPower (powerCost*Time.deltaTime*costMul);
+			pBar.SubtractPower (powerCost*Time.deltaTime*costMul);
 		}
 
 		if (Input.GetKeyDown(drillMoveKey)){
 			drill.toggleDrillAngle ();
 		}
 	}
+
+
 }

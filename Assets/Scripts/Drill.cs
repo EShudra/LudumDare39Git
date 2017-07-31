@@ -36,6 +36,9 @@ public class Drill : MonoBehaviour {
 	//used to check last player direction
 	private bool lastFasing;
 
+	//drill flip perion
+	[SerializeField] private float flipPeriod; //seconds
+
 	public void setDrillOnOff(bool state){
 		drillCollider.enabled = state;
 		drillIsOn = state;
@@ -76,6 +79,9 @@ public class Drill : MonoBehaviour {
 		drillDPS = minDrillDPS;
 		//init shake period
 		shakePeriod = minShakePeriod;
+
+		//start drill flipping animation
+		//StartCoroutine(flipCycle());
 	}
 	
 	// Update is called once per frame
@@ -111,5 +117,16 @@ public class Drill : MonoBehaviour {
 
 	public void toggleDrillAngle(){
 		drillIsDown = !drillIsDown;
+	}
+
+	IEnumerator flipCycle(){
+		while(true){
+			if (drillIsOn){
+				Vector3 drillScale = this.transform.localScale;
+				drillScale.y *= -1;
+				this.transform.localScale = drillScale;
+			}
+			yield return new WaitForSeconds(flipPeriod);
+		}
 	}
 }
