@@ -22,11 +22,15 @@ public class JumpSlider : ControlSlider {
 	//use to make slider green on a
 	//time after jump
 	bool isJumpingCycle = false;//true if slider is green
-	float sliderGreenDelay = 0.5f;//after this time slider turns to red (in seconds)
+	float sliderGreenDelay = 0.15f;//after this time slider turns to red (in seconds)
 
 	//when jump key pressed you can change
 	//jump mode with this key
 	public KeyCode jumpMode;
+
+	//keep moving state
+	private bool savedMoveState;
+
 
 	//call parent awake and init player object
 	public override void Awake ()
@@ -86,6 +90,9 @@ public class JumpSlider : ControlSlider {
 			jumpAngleArrPos = 0;
 			currJumpAngle = GetJumpAngle ();
 			isJumpingCycle = true;
+			pm.jumpPreparation = true;
+			savedMoveState = pm.moving;
+			pm.moving = false;
 		}
 
 		if (Input.GetKey (jumpKey)) {
@@ -95,6 +102,7 @@ public class JumpSlider : ControlSlider {
 		}
 
 		if (Input.GetKeyUp (jumpKey)) {
+			pm.moving = savedMoveState;
 			StartCoroutine (jumpOffWithDelay(sliderGreenDelay));
 		}
 
@@ -104,6 +112,7 @@ public class JumpSlider : ControlSlider {
 	IEnumerator jumpOffWithDelay(float seconds){
 		yield return new WaitForSeconds (seconds);
 		isJumpingCycle = false;
+		pm.jumpPreparation = false;
 		PowerOff ();		
 	}
 
