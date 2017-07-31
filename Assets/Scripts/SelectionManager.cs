@@ -12,8 +12,8 @@ public class SelectionManager : MonoBehaviour {
 	GameObject currGObj;
 
 	// Use this for initialization
-	void Awake () {
-		eSys = this.GetComponent<EventSystem> ();
+	void Start () {
+		eSys = GetComponent<EventSystem> ();
 	}
 	
 	// Update is called once per frame
