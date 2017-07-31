@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class JumpSlider : ControlSlider {
 
+	[SerializeField] private AudioSource jumpEngine;
+	[SerializeField] private AudioClip inhale;
+	[SerializeField] private AudioClip jump;
+
 	//player object to control
 	Player player;
 	//player movement component
@@ -53,6 +57,10 @@ public class JumpSlider : ControlSlider {
 		if (pm == null) {
 			Debug.LogError ("No Player object found, or Player component is not attached to plyaer [JUMP_SLIFER.CS]");
 		}
+
+		if (jumpEngine == null) {
+			Debug.LogError("No AudioSource found! [JUMP_SLIDER.CS]");
+		}
 	}
 
 	//use this method to make player jump
@@ -87,6 +95,8 @@ public class JumpSlider : ControlSlider {
 		base.Update ();
 		//if (getSliderValue() != 0)
 		if (Input.GetKeyDown (jumpKey)) {
+			jumpEngine.PlayOneShot(inhale);
+
 			jumpAngleArrPos = 0;
 			currJumpAngle = GetJumpAngle ();
 			isJumpingCycle = true;
@@ -104,6 +114,8 @@ public class JumpSlider : ControlSlider {
 		}
 
 		if (Input.GetKeyUp (jumpKey)) {
+			jumpEngine.PlayOneShot(jump);
+
 			pm.moving = savedMoveState;
 			StartCoroutine (jumpOffWithDelay(sliderGreenDelay));
 		}

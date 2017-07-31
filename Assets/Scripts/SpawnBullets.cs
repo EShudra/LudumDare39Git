@@ -14,6 +14,12 @@ public class SpawnBullets : MonoBehaviour {
 	//---5. Drag & Drop your prefab here
 	[SerializeField] private GameObject BulletPrefab;
 
+	private AudioSource gunEngine;
+	[SerializeField] private AudioClip gunRotation;
+
+	private float soundLength;
+	private float lastSoundTime = 0f;
+
 	[SerializeField] private float damage = 10f;
 	[SerializeField] private float fireRate = 0.2f;
 	[SerializeField] private float fireMinRate = 0.1f;
@@ -56,17 +62,26 @@ public class SpawnBullets : MonoBehaviour {
 		if (pm == null) {
 			Debug.LogError ("No Player object found, or no PlayerMovement component is attached to the Player! [SPAWN_BULLETS.CS]");
 		}
+
+		gunEngine = GetComponent<AudioSource>();
+
+		if (gunEngine == null) {
+			Debug.LogError("No AudioSource found! [SPAWN_BULLETS.CS]");
+		}
+
+		gunEngine.clip = gunRotation;
+		soundLength = gunRotation.length;
 	}
 		
 	public void SetFireState(bool state){
 		fireIsOn = state;
 	}
 		
-	public bool getFireState(){
+	public bool GetFireState(){
 		return fireIsOn;
 	}
 
-	public void setFireRateFromSlider(float value){
+	public void SetFireRateFromSlider(float value){
 		if (value == 0) {
 			sliderIsZero = true;
 		} else {
@@ -91,12 +106,18 @@ public class SpawnBullets : MonoBehaviour {
 		if (rotationEnabled) {
 			//rotate gun up if rotate Up key is pressed
 			if (Input.GetKey(rotateUpKey)) {
+				PlayGunTurningSound();
 				fireEulerAngle += angularEulerSpeed * Time.deltaTime;
+			} else {
+				gunEngine.Stop();
 			}
 
 			//rotate gun up if rotate Down key is pressed
 			if (Input.GetKey(rotateDownKey)) {
+				PlayGunTurningSound();
 				fireEulerAngle -= angularEulerSpeed * Time.deltaTime;
+			} else {
+				gunEngine.Stop();
 			}
 		}
 
@@ -115,6 +136,7 @@ public class SpawnBullets : MonoBehaviour {
 	}
 
 	void SpawnBullet() {
+
 		//make an instance of bullet with correct rotation
 		//flip angle if needed
 		float spawnAngle = 180 - fireEulerAngle;
@@ -133,8 +155,12 @@ public class SpawnBullets : MonoBehaviour {
 		} else {
 			Debug.LogError("No Bullet component found attached to the bullet prefab! [SPAWN_BULLETS.CS]");
 		}
+	}
 
-		
-
+	private void PlayGunTurningSound() {
+		if (Time.time > lastSoundTime + soundLength) {
+			gunEngine.Play();
+			lastSoundTime = Time.time;
+		}
 	}
 }
