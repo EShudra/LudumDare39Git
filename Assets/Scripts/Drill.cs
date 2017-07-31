@@ -7,6 +7,13 @@ public class Drill : MonoBehaviour {
 	//playerMovement object
 	private PlayerMovement pm;
 
+	private AudioSource drillEngine;
+	[SerializeField] private AudioClip drillRotation;
+	[SerializeField] private AudioClip drilling;
+
+	private float soundLength;
+	private float lastSoundTime;
+
 	//damage per second that caused by drill
 	[SerializeField] private float minDrillDPS = 10f;
 	[SerializeField] private float maxDrillDPS = 200f;
@@ -39,7 +46,7 @@ public class Drill : MonoBehaviour {
 	//drill flip perion
 	[SerializeField] private float flipPeriod; //seconds
 
-	public void setDrillOnOff(bool state){
+	public void SetDrillOnOff(bool state){
 		drillCollider.enabled = state;
 		drillIsOn = state;
 		if (state) {
@@ -49,7 +56,7 @@ public class Drill : MonoBehaviour {
 		}
 	}
 
-	public void setDrillDpsFromSlider(float value){
+	public void SetDrillDpsFromSlider(float value){
 		//value = Mathf.Clamp01 (value);
 		if (value == 0) {
 			drillDPS = 0;
@@ -82,6 +89,15 @@ public class Drill : MonoBehaviour {
 
 		//start drill flipping animation
 		//StartCoroutine(flipCycle());
+
+		drillEngine = GetComponent<AudioSource>();
+
+		if (drillEngine == null) {
+			Debug.LogError("No AudioSource found! [DRILL.CS]");
+		}
+
+		drillEngine.clip = drilling;
+		soundLength = drilling.length;
 	}
 	
 	// Update is called once per frame
@@ -93,6 +109,9 @@ public class Drill : MonoBehaviour {
 			Vector3 offset = new Vector3 (0, shakeAmplitude*Mathf.Sin(Time.time*shakePeriod), 0);
 			Debug.Log (offset.y);
 			rotPivot.localPosition = offset;
+			PlayDrillingSound();
+		} else {
+			drillEngine.Stop();
 		}
 
 		float drillFinalAngle = 0f;
@@ -115,11 +134,12 @@ public class Drill : MonoBehaviour {
 		lastFasing = pm.facingRight;
 	}
 
-	public void toggleDrillAngle(){
+	public void ToggleDrillAngle(){
 		drillIsDown = !drillIsDown;
+		drillEngine.PlayOneShot(drillRotation);
 	}
 
-	IEnumerator flipCycle(){
+	IEnumerator FlipCycle(){
 		while(true){
 			if (drillIsOn){
 				Vector3 drillScale = this.transform.localScale;
@@ -127,6 +147,13 @@ public class Drill : MonoBehaviour {
 				this.transform.localScale = drillScale;
 			}
 			yield return new WaitForSeconds(flipPeriod);
+		}
+	}
+
+	private void PlayDrillingSound() {
+		if (Time.time > lastSoundTime + soundLength) {
+			drillEngine.Play();
+			lastSoundTime = Time.time;
 		}
 	}
 }
