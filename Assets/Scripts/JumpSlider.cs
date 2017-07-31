@@ -28,6 +28,10 @@ public class JumpSlider : ControlSlider {
 	//jump mode with this key
 	public KeyCode jumpMode;
 
+	//keep moving state
+	private bool savedMoveState;
+
+
 	//call parent awake and init player object
 	public override void Awake ()
 	{
@@ -86,6 +90,9 @@ public class JumpSlider : ControlSlider {
 			jumpAngleArrPos = 0;
 			currJumpAngle = GetJumpAngle ();
 			isJumpingCycle = true;
+			pm.jumpPreparation = true;
+			savedMoveState = pm.moving;
+			pm.moving = false;
 		}
 
 		if (Input.GetKey (jumpKey)) {
@@ -95,6 +102,8 @@ public class JumpSlider : ControlSlider {
 		}
 
 		if (Input.GetKeyUp (jumpKey)) {
+			pm.moving = savedMoveState;
+			pm.jumpPreparation = false;
 			StartCoroutine (jumpOffWithDelay(sliderGreenDelay));
 		}
 
