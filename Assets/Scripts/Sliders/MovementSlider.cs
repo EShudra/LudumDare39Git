@@ -63,7 +63,7 @@ public class MovementSlider : ControlSlider {
 		if (pm.moving) {
 			float costMul = getSliderValue();
 			//Debug.Log (powerCost * Time.deltaTime*costMul);
-			pBar.subtractPower (powerCost*Time.deltaTime*costMul);
+			pBar.SubtractPower (powerCost*Time.deltaTime*costMul);
 		}
 	}
 

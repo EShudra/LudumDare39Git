@@ -48,7 +48,7 @@ public class DrillSlider : ControlSlider {
 		//spend power
 		if (drill.drillIsOn) {
 			float costMul = getSliderValue();
-			pBar.subtractPower (powerCost*Time.deltaTime*costMul);
+			pBar.SubtractPower (powerCost*Time.deltaTime*costMul);
 		}
 
 		if (Input.GetKeyDown(drillMoveKey)){
