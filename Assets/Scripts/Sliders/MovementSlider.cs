@@ -11,6 +11,8 @@ public class MovementSlider : ControlSlider {
 	PlayerMovement pm;
 	//move key
 	public KeyCode moveKey;
+	//
+	bool flag = false;
 
 	//call base Awake() and init gun
 	public override void Awake (){
@@ -31,20 +33,21 @@ public class MovementSlider : ControlSlider {
 			Debug.LogError ("No Player object found, or no PlayerMovement component is attached to the Player! [MOVEMENT_SLIDER.CS]");
 		}
 
+		flag = pm.moving;
 	}
 
 	//set player movement speen from according to player value
 	public override void SetPlayerProperty (float sliderValue)
 	{
 		player.SetSpeedFromSlider (sliderValue);
+
 	}
 
 	//on/off player movement
 	public override void EnablePlayerProperty (bool state)
-	{
-		if (getSliderValue() != 0) {
+	{	
+
 			pm.moving = state;
-		}
 
 	}
 
