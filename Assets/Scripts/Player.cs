@@ -9,13 +9,6 @@ public class Player : MonoBehaviour {
 
 	[System.Serializable]
 	public class PlayerStats {
-		public float maximumPower = 300f;
-		private float powerAmount_ = 0f;
-
-		public float powerAmount {
-			get { return powerAmount_; }
-			set { powerAmount_ = Mathf.Clamp(value, 0, maximumPower); }
-		}
 
 		public float maximumHealth = 100f;
 		private float healthAmount_ = 0f;
@@ -26,12 +19,10 @@ public class Player : MonoBehaviour {
 		}
 
 		public PlayerStats() {
-			this.powerAmount = maximumPower;
 			this.healthAmount = maximumHealth;
 		}
 
-		public PlayerStats(float powerToSet, float healthToSet) {
-			this.powerAmount = powerToSet;
+		public PlayerStats(float healthToSet) {
 			this.healthAmount = healthToSet;
 		}
 	}
@@ -39,6 +30,8 @@ public class Player : MonoBehaviour {
 	public float damage;
 	public float fallDamage;
 
+	[SerializeField] private Transform playerExplosionPrefab;
+	[SerializeField] private Transform batteryPickupPrefab;
 	[SerializeField] private PlayerStats stats = new PlayerStats();
 
 	private PlayerMovement pm;
@@ -52,7 +45,7 @@ public class Player : MonoBehaviour {
 	}
 
 	private void Start() {
-		Debug.Log("The game has started! Player now has " + stats.powerAmount + " power and " + stats.healthAmount + " health.");
+		Debug.Log("The game has started! Player now has " + stats.healthAmount + " health.");
 	}
 
 	public void SetSpeedFromSlider (float sliderMultiplier) {       //Set current speed with slider
@@ -68,15 +61,9 @@ public class Player : MonoBehaviour {
 		pm.jumping = true;
 	}
 
-	public void Charge(float chargeAmount) {			//Charge Player with some batteries
-		stats.powerAmount += chargeAmount;
-		pBar.addPower (chargeAmount);
-		Debug.Log("You picked up a battery! +" + chargeAmount + " power gained. Current power - " + stats.powerAmount + ".");
-
-		if (stats.powerAmount <= 0) {
-			Debug.Log("You died! Zero power reached! Health remaining: " + stats.healthAmount + ".");
-			Destroy(gameObject);
-		}
+	public void Charge (float chargeAmount) {
+		pBar.AddPower(chargeAmount);
+		Instantiate(batteryPickupPrefab, transform.position, transform.rotation, transform);
 	}
 
 	public void Hit (float damage) {					//Hit Player with some damage
@@ -85,8 +72,13 @@ public class Player : MonoBehaviour {
 		Debug.Log("You got hit with " + damage + " damage. Current health - " + stats.healthAmount + ".");
 
 		if (stats.healthAmount <= 0) {
-			Debug.Log("You died! Someone killed you! Power unused: " + stats.powerAmount + ".");
-			Destroy(gameObject);
+			Debug.Log("You died! Someone killed you!");
+			DestroyPlayer();
 		}
+	}
+
+	public void DestroyPlayer() {
+		Instantiate(playerExplosionPrefab, transform.position, transform.rotation);
+		Destroy(gameObject);
 	}
 }

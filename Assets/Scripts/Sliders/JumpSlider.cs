@@ -64,7 +64,7 @@ public class JumpSlider : ControlSlider {
 
 			//subtract power
 			float costMul = getSliderValue();
-			pBar.subtractPower (powerCost*costMul);
+			pBar.SubtractPower (powerCost*costMul);
 		}
 	}
 

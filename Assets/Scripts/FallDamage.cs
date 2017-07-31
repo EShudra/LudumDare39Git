@@ -29,13 +29,12 @@ public class FallDamage : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log("rb2D.velocity.y - " + rb2D.velocity.y);
 		if (rb2D.velocity.y < rigidbodyDamageBound) {
 			gotDamage = true;
 			fallDamage = player.fallDamage + (-rb2D.velocity.y - rigidbodyDamageBound) * fallDamageMultiplier;
 		}
 	}
-
+	
 	private void OnTriggerEnter2D(Collider2D collision) {
 		if (gotDamage) {
 			Debug.Log("You got hit by " + fallDamage + ". Are you still alive, bruh?");

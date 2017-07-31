@@ -11,7 +11,7 @@ public class PlayerMovement: MonoBehaviour {
 	public float jumpForce = 500f;                                      // Amount of force added when the player jumps.
 	public float maximumJumpForce = 1500f;
 	public float minimumJumpForce = 0f;
-	public Vector3 jumpVector = Vector3.up;
+	public Vector3 jumpVector = Vector3.zero;
 
 	[SerializeField] private bool airControl = false;                 // Whether or not a player can steer while jumping;
 	[SerializeField] private LayerMask whatIsGround;                  // A mask determining what is ground to the character
@@ -27,6 +27,8 @@ public class PlayerMovement: MonoBehaviour {
 	[HideInInspector] public bool moving = false;       // For determining if the player is currently moving
 	[HideInInspector] public bool jumpPreparation = false;  // For determining if the player is preparing to jump.
 	[HideInInspector] public bool turnAround = false;
+
+	[SerializeField] private Transform jumpParticlesPrefab;
 
 	/*
 	private Vector3 lastPos;//use to check player offset from last frame
@@ -102,6 +104,10 @@ public class PlayerMovement: MonoBehaviour {
 		if (grounded && jumping) {
 			grounded = false;
 			rb2D.AddForce(jumpVector * jumpForce);
+			if (jumpVector.x != 0f && jumpVector.y != 0f && jumpForce != 0f) {
+				Instantiate(jumpParticlesPrefab, transform.position, transform.rotation);
+			}
+				
 		}
 	}
 
