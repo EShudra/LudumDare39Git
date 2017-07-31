@@ -7,6 +7,7 @@ public class Player : MonoBehaviour {
 	public PowerBar pBar;
 	public HpBar hpBar;
 
+	[System.Serializable]
 	public class PlayerStats {
 		public float maximumPower = 300f;
 		private float powerAmount_ = 0f;
@@ -35,7 +36,10 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	private PlayerStats stats = new PlayerStats(10f, 100f);
+	public float damage;
+
+	[SerializeField] private PlayerStats stats = new PlayerStats();
+
 	private PlayerMovement pm;
 
 	private void Awake() {

@@ -14,6 +14,7 @@ public class SpawnBullets : MonoBehaviour {
 	//---5. Drag & Drop your prefab here
 	[SerializeField] private GameObject BulletPrefab;
 
+	[SerializeField] private float damage = 10f;
 	[SerializeField] private float fireRate = 0.2f;
 	[SerializeField] private float fireMinRate = 0.1f;
 	[SerializeField] private float fireMaxRate = 0.4f;
@@ -113,29 +114,27 @@ public class SpawnBullets : MonoBehaviour {
 
 	}
 
-	void SpawnBullet(){
-		//get camera pos
-		Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-		mousePos.z = 0;
-
-		//get spawn point pos
-		Vector3 spawnPos = transform.position;
-
-		//calculate fire direction vector
-		Vector3 direction = mousePos - spawnPos;
-
+	void SpawnBullet() {
 		//make an instance of bullet with correct rotation
 		//flip angle if needed
-		float spawnAngle = 180 -fireEulerAngle;
+		float spawnAngle = 180 - fireEulerAngle;
 		if (playerLooksRight) {
 			spawnAngle = fireEulerAngle;
 		}
 
 		//add spread
-		spawnAngle += (Random.value-0.5f)*2*angularEulerSpread;
+		spawnAngle += (Random.value - 0.5f) * 2 * angularEulerSpread;
 
-		Quaternion newRotation = Quaternion.Euler(new Vector3(0,0,spawnAngle));
-		Instantiate (BulletPrefab, spawnPos, newRotation);
+		Quaternion newRotation = Quaternion.Euler(new Vector3(0, 0, spawnAngle));
+		Bullet bullet = Instantiate(BulletPrefab, transform.position, newRotation).GetComponentInChildren<Bullet>();
+
+		if (bullet != null) {
+			bullet.damage = damage;
+		} else {
+			Debug.LogError("No Bullet component found attached to the bullet prefab! [SPAWN_BULLETS.CS]");
+		}
+
+		
 
 	}
 }
