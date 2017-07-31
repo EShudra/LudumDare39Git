@@ -17,6 +17,8 @@ public class CameraTarget : MonoBehaviour {
 	}
 
 	private void Update() {
-		transform.position = pm.transform.position + Vector3.right * horizontalOffset;
+		if (pm != null) {
+			transform.position = pm.transform.position + Vector3.right * horizontalOffset;
+		}
 	}
 }
