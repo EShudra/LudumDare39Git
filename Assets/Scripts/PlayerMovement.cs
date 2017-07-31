@@ -30,6 +30,9 @@ public class PlayerMovement: MonoBehaviour {
 
 	[SerializeField] private Transform jumpParticlesPrefab;
 
+	//use to detect when is jump mode wat changed
+	public bool jumpModeIsChanged = false;
+
 	/*
 	private Vector3 lastPos;//use to check player offset from last frame
 	private Vector3 horizontalMovingThreshold = new Vector3 (0.2f*Time.fixedDeltaTime,0,0);
@@ -119,5 +122,13 @@ public class PlayerMovement: MonoBehaviour {
 		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;
 		transform.localScale = theScale;
+	}
+
+	//use to check if jump mode changed
+	public bool jumpModeChanged(){
+		bool state;
+		state = jumpModeIsChanged;
+		jumpModeIsChanged = false;
+		return state;
 	}
 }

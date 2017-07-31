@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerAnimations : MonoBehaviour {
 
 	//player game object
-	private GameObject player;
+	private GameObject player; 	
 	private Player pPlayer; //Player component
 	private PlayerMovement pPlayerMovement; //PlayerMovement component
 
@@ -34,5 +34,12 @@ public class PlayerAnimations : MonoBehaviour {
 		walk = walk && (pPlayerMovement.movementSpeed != 0);
 		//Debug.Log (pPlayerMovement.movementSpeed);
 		anim.SetBool ("Walk", walk);
+
+		if (pPlayerMovement.jumpModeChanged () && anim.GetBool("JumpPreparation")) {
+			anim.SetTrigger ("JumpMode");
+		}
+
+		anim.SetBool ("JumpPreparation",pPlayerMovement.jumpPreparation);
+
 	}
 }

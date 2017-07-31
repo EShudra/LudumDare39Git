@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class FireSlider : ControlSlider {
 
 	//gun object to control
-	SpawnBullets gun;
+	[SerializeField] private SpawnBullets gun;
 
 	//fire key code
 	public KeyCode fireKey;
@@ -18,7 +18,7 @@ public class FireSlider : ControlSlider {
 		base.Awake ();
 
 		//find object with tag "gun"
-		gun = GameObject.FindGameObjectWithTag ("Gun").gameObject.GetComponent<SpawnBullets> ();
+		//gun = GameObject.FindGameObjectWithTag ("Gun").GetComponent<SpawnBullets> ();
 
 		//check if gun in null
 		if (gun == null) {
