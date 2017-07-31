@@ -20,7 +20,7 @@ public class PlayerMovement: MonoBehaviour {
 	private BoxCollider2D grCheckBoxCollider;
 	private const float groundCheckRadius = 0.25f; // Radius of the overlap circle to determine if grounded
 	private bool grounded;            // Whether or not the player is grounded.
-	private Rigidbody2D rb2D;		//Reference to the rigidbody2D
+	[HideInInspector] public Rigidbody2D rb2D;		//Reference to the rigidbody2D
 
 	[HideInInspector] public bool jumping; // For determining when the player is jumping.
 	[HideInInspector] public bool facingRight = false;  // For determining which way the player is currently facing.
@@ -65,16 +65,11 @@ public class PlayerMovement: MonoBehaviour {
 		}
 		turnAround = false;
 
-		/* The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
+		/* The player is grounded if a boxcast of the groundcheck boxCollider2D hits anything designated as ground
 		   This can be done using layers instead but Sample Assets will not overwrite your project settings. */
 		grounded = false;
-
-		//Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.transform.position, groundCheckRadius, whatIsGround);
-		//grChechBoxCollider.Cast
 		RaycastHit2D[] hits = Physics2D.BoxCastAll(groundCheck.transform.position, grCheckBoxCollider.size, 0f, new Vector2(0f,0f), 0f, whatIsGround);
 
-		//Debug.DrawLine(new Vector2(groundCheck.transform.position.x + groundCheckRadius, groundCheck.transform.position.y), new Vector2(groundCheck.transform.position.x - groundCheckRadius, groundCheck.transform.position.y));
-		//Debug.DrawLine(new Vector2(groundCheck.transform.position.x, groundCheck.transform.position.y + groundCheckRadius), new Vector2(groundCheck.transform.position.x, groundCheck.transform.position.y - groundCheckRadius));
 		for (int i = 0; i < hits.Length; i++) {
 			if (hits[i].transform.gameObject != gameObject)
 				grounded = true;
@@ -92,11 +87,6 @@ public class PlayerMovement: MonoBehaviour {
 	}
 
 	public void Move(bool jumping, bool turnAround) {																		//MOVE
-
-		/*isMovingVertical = (lastPos - transform.position).x <= horizontalMovingThreshold.x;
-		Debug.Log (isMovingVertical );
-		//keep last pos
-		lastPos = transform.position;*/
 
 		//only control the player  if grounded or airControl is turned on
 		if ((grounded || airControl) && moving && !jumpPreparation) {

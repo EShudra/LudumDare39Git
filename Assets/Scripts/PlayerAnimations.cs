@@ -30,6 +30,9 @@ public class PlayerAnimations : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		anim.SetBool ("Walk", pPlayerMovement.moving);
+		bool walk = pPlayerMovement.moving;
+		walk = walk && (pPlayerMovement.movementSpeed != 0);
+		//Debug.Log (pPlayerMovement.movementSpeed);
+		anim.SetBool ("Walk", walk);
 	}
 }
