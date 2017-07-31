@@ -40,10 +40,10 @@ public class BarrelRotation : MonoBehaviour {
 		SetConstraints(turretType);
 	}
 	
-	// Update is called once per frame
 	void Update () {
-		RotateBarrel();
-		//CastToThePlayer();
+		if (target != null) {
+			RotateBarrel();
+		}
 	}
 
 	private void SetConstraints(TurretType tt) {
@@ -106,7 +106,6 @@ public class BarrelRotation : MonoBehaviour {
 		if (hit.collider.tag == tagToShoot) {
 			tbs.SetFireState(true);
 			Debug.DrawRay(firePoint.position, target.position - firePoint.position, Color.green);
-			//Debug.Log("SHOOTING");
 		} else {
 			tbs.SetFireState(false);
 			Debug.DrawRay(firePoint.position, new Vector3(hit.point.x, hit.point.y, 0f) - firePoint.position, Color.red);

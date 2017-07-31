@@ -7,6 +7,7 @@ public class TurretBulletSpawn : MonoBehaviour {
 	[SerializeField] private GameObject BulletPrefab;
 	[SerializeField] private Transform firePoint;
 
+	public float damage = 5f;
 	[SerializeField] private float fireRate = 0.2f;
 	[SerializeField] private float fireMinRate = 0.1f;
 	[SerializeField] private float fireMaxRate = 0.4f;
@@ -17,7 +18,6 @@ public class TurretBulletSpawn : MonoBehaviour {
 	private float startTime = 0f;
 
 	[HideInInspector] public bool fireIsOn = false;
-	[HideInInspector] public float damage = 5f;
 
 	void Awake() {
 		fireRate = fireMaxRate;

@@ -8,8 +8,8 @@ public class PlayerMovement: MonoBehaviour {
 	public float maximumMovementSpeed = 12f;
 	public float minimumMovementSpeed = 0f;
 
-	public float jumpForce = 400f;                                      // Amount of force added when the player jumps.
-	public float maximumJumpForce = 1000f;
+	public float jumpForce = 500f;                                      // Amount of force added when the player jumps.
+	public float maximumJumpForce = 1500f;
 	public float minimumJumpForce = 0f;
 	public Vector3 jumpVector = Vector3.up;
 
