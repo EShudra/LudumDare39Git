@@ -85,12 +85,14 @@ public class JumpSlider : ControlSlider {
 
 	public override void Update () {
 		base.Update ();
-		//sliderIsGreen = false;
+		//if (getSliderValue() != 0)
 		if (Input.GetKeyDown (jumpKey)) {
 			jumpAngleArrPos = 0;
 			currJumpAngle = GetJumpAngle ();
 			isJumpingCycle = true;
-			pm.jumpPreparation = true;
+			if (getSliderValue () != 0) {
+				pm.jumpPreparation = true;
+			}
 			savedMoveState = pm.moving;
 			pm.moving = false;
 		}
@@ -128,6 +130,7 @@ public class JumpSlider : ControlSlider {
 		if (!pm.facingRight) {
 			angle = 180f - angle;
 		}
+		pm.jumpModeIsChanged = true;
 		return angle;
 	}
 
