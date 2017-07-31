@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour {
 			player.Hit(damage);
 			Debug.Log("HIT THE PLAYER!!!!!!");
 			DestroyBullet();
-		} else if (col.CompareTag("Wall")) {
+		} else if (col.CompareTag("Wall") || col.CompareTag("DestroyableWall")) {
 			Debug.Log("HIT THE WALL!!!!!!");
 			DestroyBullet();
 		} else if (col.CompareTag("Enemy")) {
@@ -48,7 +48,7 @@ public class Bullet : MonoBehaviour {
 			Debug.Log("HIT THE PLAYER!!!!!!");
 			DestroyBullet();
 
-		} else if (col.collider.CompareTag("Wall")) {
+		} else if (col.collider.CompareTag("Wall") || col.collider.CompareTag("DestroyableWall")) {
 
 			Debug.Log("HIT THE WALL!!!!!!");
 			DestroyBullet();

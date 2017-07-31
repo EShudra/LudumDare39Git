@@ -5,7 +5,7 @@ using UnityEngine;
 public class DrillSlider : ControlSlider {
 
 	//player object to control
-	Drill drill;
+	[SerializeField] private Drill drill;
 
 	//move key
 	public KeyCode drillOnOffKey;
@@ -17,7 +17,7 @@ public class DrillSlider : ControlSlider {
 		base.Awake ();
 
 		//find object with tag "player"
-		drill = GameObject.FindGameObjectWithTag ("Drill").GetComponent<Drill> ();
+		//drill = GameObject.FindGameObjectWithTag ("Drill").GetComponent<Drill> ();
 
 		//check if player in null
 		if (drill == null) {
