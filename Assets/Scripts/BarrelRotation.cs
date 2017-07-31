@@ -14,6 +14,10 @@ public class BarrelRotation : MonoBehaviour {
 	[SerializeField] private string tagToShoot;                                     //Choose the tag, which the turret will be looking for
 	[SerializeField] private LayerMask whatToHit;
 	[SerializeField] private Transform firePoint;
+	[SerializeField] private float turretFollowXConstraint = 5f;
+	[SerializeField] private float turretFollowYConstraint = 5f;
+
+	[SerializeField] private float healthPoints;
 
 	private Transform target;
 	private TurretBulletSpawn tbs;
@@ -40,10 +44,10 @@ public class BarrelRotation : MonoBehaviour {
 		SetConstraints(turretType);
 	}
 	
-	// Update is called once per frame
 	void Update () {
-		RotateBarrel();
-		//CastToThePlayer();
+		if (target != null) {
+			RotateBarrel();
+		}
 	}
 
 	private void SetConstraints(TurretType tt) {
@@ -65,10 +69,16 @@ public class BarrelRotation : MonoBehaviour {
 	private void RotateBarrel () {
 
 		Vector3 difference = target.position - transform.position;
+		DrawFollowBox();
+		
+		if (difference.x > turretFollowXConstraint || difference.x < -turretFollowXConstraint || difference.y > turretFollowYConstraint || difference.y < -turretFollowYConstraint) {
+			tbs.SetFireState(false);
+			return;
+		}
+
 		difference.Normalize(); //normalizing the vector
 
 		float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg; //find the angle in degrees
-
 
 		if (minRotationConstraint == -90f && maxRotationConstraint == 90f) {                                                                                            //LEFT
 			if (rotationZ < minRotationConstraint) {
@@ -106,10 +116,17 @@ public class BarrelRotation : MonoBehaviour {
 		if (hit.collider.tag == tagToShoot) {
 			tbs.SetFireState(true);
 			Debug.DrawRay(firePoint.position, target.position - firePoint.position, Color.green);
-			//Debug.Log("SHOOTING");
 		} else {
 			tbs.SetFireState(false);
 			Debug.DrawRay(firePoint.position, new Vector3(hit.point.x, hit.point.y, 0f) - firePoint.position, Color.red);
 		}
+	}
+
+	private void DrawFollowBox() {
+		Debug.DrawLine(new Vector2(transform.position.x + turretFollowXConstraint, transform.position.y + turretFollowYConstraint), new Vector2(transform.position.x - turretFollowXConstraint, transform.position.y + turretFollowYConstraint), Color.cyan);
+		Debug.DrawLine(new Vector2(transform.position.x + turretFollowXConstraint, transform.position.y + turretFollowYConstraint), new Vector2(transform.position.x + turretFollowXConstraint, transform.position.y - turretFollowYConstraint), Color.cyan);
+		Debug.DrawLine(new Vector2(transform.position.x + turretFollowXConstraint, transform.position.y - turretFollowYConstraint), new Vector2(transform.position.x - turretFollowXConstraint, transform.position.y - turretFollowYConstraint), Color.cyan);
+		Debug.DrawLine(new Vector2(transform.position.x - turretFollowXConstraint, transform.position.y + turretFollowYConstraint), new Vector2(transform.position.x - turretFollowXConstraint, transform.position.y - turretFollowYConstraint), Color.cyan);
+
 	}
 }
