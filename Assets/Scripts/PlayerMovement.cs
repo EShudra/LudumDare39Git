@@ -28,6 +28,12 @@ public class PlayerMovement: MonoBehaviour {
 	[HideInInspector] public bool jumpPreparation = false;  // For determining if the player is preparing to jump.
 	[HideInInspector] public bool turnAround = false;
 
+	/*
+	private Vector3 lastPos;//use to check player offset from last frame
+	private Vector3 horizontalMovingThreshold = new Vector3 (0.2f*Time.fixedDeltaTime,0,0);
+
+	bool isMovingVertical = false;*/
+
 	private void Awake() {
 		
 		// Setting up references.
@@ -47,10 +53,18 @@ public class PlayerMovement: MonoBehaviour {
 		if (grCheckBoxCollider == null) {
 			Debug.LogError("No BoxCollider2D component found! [PLAYER_MOVEMENT.CS]");
 		}
+
+		//lastPos = transform.position;
 	}
 
 
 	private void FixedUpdate() {																										//FIXED UPDATE
+		// Turn around if the correct key was pressed
+		if (turnAround) {
+			Flip();
+		}
+		turnAround = false;
+
 		/* The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
 		   This can be done using layers instead but Sample Assets will not overwrite your project settings. */
 		grounded = false;
@@ -59,8 +73,8 @@ public class PlayerMovement: MonoBehaviour {
 		//grChechBoxCollider.Cast
 		RaycastHit2D[] hits = Physics2D.BoxCastAll(groundCheck.transform.position, grCheckBoxCollider.size, 0f, new Vector2(0f,0f), 0f, whatIsGround);
 
-		Debug.DrawLine(new Vector2(groundCheck.transform.position.x + groundCheckRadius, groundCheck.transform.position.y), new Vector2(groundCheck.transform.position.x - groundCheckRadius, groundCheck.transform.position.y));
-		Debug.DrawLine(new Vector2(groundCheck.transform.position.x, groundCheck.transform.position.y + groundCheckRadius), new Vector2(groundCheck.transform.position.x, groundCheck.transform.position.y - groundCheckRadius));
+		//Debug.DrawLine(new Vector2(groundCheck.transform.position.x + groundCheckRadius, groundCheck.transform.position.y), new Vector2(groundCheck.transform.position.x - groundCheckRadius, groundCheck.transform.position.y));
+		//Debug.DrawLine(new Vector2(groundCheck.transform.position.x, groundCheck.transform.position.y + groundCheckRadius), new Vector2(groundCheck.transform.position.x, groundCheck.transform.position.y - groundCheckRadius));
 		for (int i = 0; i < hits.Length; i++) {
 			if (hits[i].transform.gameObject != gameObject)
 				grounded = true;
@@ -74,10 +88,15 @@ public class PlayerMovement: MonoBehaviour {
 		jumping = false;
 
 		grounded = false;
-		turnAround = false;
+
 	}
 
 	public void Move(bool jumping, bool turnAround) {																		//MOVE
+
+		/*isMovingVertical = (lastPos - transform.position).x <= horizontalMovingThreshold.x;
+		Debug.Log (isMovingVertical );
+		//keep last pos
+		lastPos = transform.position;*/
 
 		//only control the player  if grounded or airControl is turned on
 		if ((grounded || airControl) && moving && !jumpPreparation) {
@@ -88,11 +107,7 @@ public class PlayerMovement: MonoBehaviour {
 				transform.Translate(new Vector2(-movementSpeed * Time.fixedDeltaTime, 0f));
 			}
 		}
-
-		// Turn around if the correct key was pressed
-		if (turnAround) {
-			Flip();
-		}
+			
 		// Jump, if the correct key was pressed
 		if (grounded && jumping) {
 			grounded = false;

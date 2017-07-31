@@ -22,7 +22,7 @@ public class JumpSlider : ControlSlider {
 	//use to make slider green on a
 	//time after jump
 	bool isJumpingCycle = false;//true if slider is green
-	float sliderGreenDelay = 0.5f;//after this time slider turns to red (in seconds)
+	float sliderGreenDelay = 0.15f;//after this time slider turns to red (in seconds)
 
 	//when jump key pressed you can change
 	//jump mode with this key
@@ -103,7 +103,6 @@ public class JumpSlider : ControlSlider {
 
 		if (Input.GetKeyUp (jumpKey)) {
 			pm.moving = savedMoveState;
-			pm.jumpPreparation = false;
 			StartCoroutine (jumpOffWithDelay(sliderGreenDelay));
 		}
 
@@ -113,6 +112,7 @@ public class JumpSlider : ControlSlider {
 	IEnumerator jumpOffWithDelay(float seconds){
 		yield return new WaitForSeconds (seconds);
 		isJumpingCycle = false;
+		pm.jumpPreparation = false;
 		PowerOff ();		
 	}
 
