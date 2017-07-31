@@ -37,6 +37,7 @@ public class Player : MonoBehaviour {
 	}
 
 	public float damage;
+	public float fallDamage;
 
 	[SerializeField] private PlayerStats stats = new PlayerStats();
 
