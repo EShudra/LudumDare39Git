@@ -76,13 +76,17 @@ public class MovementSlider: ControlSlider {
 			//Debug.Log (powerCost * Time.deltaTime*costMul);
 			pBar.SubtractPower(powerCost * Time.deltaTime * costMul);
 		} else {
-			walkEngine.Stop();
+			if (GameObject.FindWithTag ("Player") != null) {
+				walkEngine.Stop ();
+			}
 		}
 	}
 
 	private void PlayWalkingSound() {
 		if (Time.time > lastSoundTime + soundLength) {
-			walkEngine.Play();
+			if (GameObject.FindWithTag ("Player") != null) {
+				walkEngine.Play ();
+			}
 			lastSoundTime = Time.time;
 		} 
 	}
