@@ -80,10 +80,6 @@ public class PlayerMovement: MonoBehaviour {
 				grounded = true;
 		}
 
-		if (jumpPreparation) {
-																													//TODO: jump prepataion animation
-		}
-
 		Move(jumping, turnAround);
 		jumping = false;
 

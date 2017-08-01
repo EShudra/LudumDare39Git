@@ -35,7 +35,7 @@ public class FireSlider : ControlSlider {
 	//change fire rate by slider value
 	public override void SetPlayerProperty (float value)
 	{
-		gun.setFireRateFromSlider (value);
+		gun.SetFireRateFromSlider (value);
 	}
 		
 	//when true property and slider set to ON
@@ -46,7 +46,7 @@ public class FireSlider : ControlSlider {
 
 	override public void Update(){
 		base.Update ();
-		if (gun.getFireState ()) {
+		if (gun.GetFireState ()) {
 			float costMul = getSliderValue();
 			pBar.SubtractPower (powerCost*Time.deltaTime*costMul);
 		}

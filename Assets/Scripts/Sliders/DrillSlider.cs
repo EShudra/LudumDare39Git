@@ -29,12 +29,12 @@ public class DrillSlider : ControlSlider {
 
 	public override void EnablePlayerProperty (bool state)
 	{
-		drill.setDrillOnOff (state);
+		drill.SetDrillOnOff (state);
 	}
 
 	public override void SetPlayerProperty (float value)
 	{
-		drill.setDrillDpsFromSlider (getSliderValue ());
+		drill.SetDrillDpsFromSlider (getSliderValue ());
 	}
 
 	//when drill hotkeyDown is true drill switches state (On/Off)
@@ -53,7 +53,7 @@ public class DrillSlider : ControlSlider {
 		}
 
 		if (Input.GetKeyDown(drillMoveKey)){
-			drill.toggleDrillAngle ();
+			drill.ToggleDrillAngle ();
 		}
 	}
 
