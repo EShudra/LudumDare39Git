@@ -1,9 +1,12 @@
-/[Ll]ibrary/
+/[Ll]ibrary/*
 /[Tt]emp/
 /[Oo]bj/
 /[Bb]uild/
 /[Bb]uilds/
 /Assets/AssetStoreTools*
+
+# Keep this file which loads one scene by default
+!/[Ll]ibrary/LastSceneManagerSetup.txt
 
 # Visual Studio 2015 cache directory
 /.vs/
@@ -34,3 +37,5 @@ sysinfo.txt
 *.unitypackage
 
 *.log
+.ionide/
+.vscode/
